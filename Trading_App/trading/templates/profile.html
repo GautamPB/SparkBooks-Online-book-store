@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class = "media">
+		<div class = "media-left" id = 'pfp'>
+			<img src="{{ image_file }}">
+		</div>
+		<div class = "media-body">
+			<h1>{{ current_user.username }}</h1>
+			<h3>{{ current_user.email }}</h3>
+		</div>
+	</div>
+
+	<a href="{{ url_for('users.update_account', user = current_user.username) }}"><button class = "btn btn-info">Update Account</button></a>
+	<a href="{{ url_for('users.change_password', user = current_user.username) }}"><button class = 'btn btn-info'>Change Password</button></a>
+{% endblock content %}

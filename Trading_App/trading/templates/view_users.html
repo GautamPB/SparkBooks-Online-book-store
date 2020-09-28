@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+	{% for user in users %}
+		<div class = "media">
+			<div class = "media-left" id = 'pfp'>
+				<img src="{{ url_for('static', filename = 'pictures/' + user.image_file) }}">
+			</div>
+			<div class = "media-body">
+				<h1>{{ user.username }}</h1>
+				<h3>{{ user.email }}</h3>
+			</div>
+		</div>
+		<div class = 'page_header'></div>
+	{% endfor %}
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class = "single-book-cover">
+		<img src="{{ url_for('static', filename = 'pictures/' + book.cover) }}">
+	</div>
+	<div class = "single-book-content">
+		<h1>{{ book.name }}</h1>
+		<h3>{{ book.author }}</h3>
+		<h3>₹{{ book.price }}.00</h3>
+		<small>(Delivery charges are applicable)</small>
+	</div>
+
+	<a href="{{ url_for('books.write_comment', book_id = book.id) }}">
+		<button class = 'btn btn-info'>Write a review</button>
+	</a>
+
+	<br><br>
+
+	<h1>Reviews</h1>
+	<div class = 'page-header'></div>
+	{% for comment in comments %}
+		<div class = 'media'>
+			<div class = 'media-left' id = 'pfp'>
+				<img style = 'width: 75px; height: 75px;' src="{{ url_for('static', filename = 'pictures/' + comment.pfp) }}">
+			</div>
+			<div class = 'media-body'>
+				<h3>{{ comment.title }}</h3>
+				<a href="{{ url_for('users.profile', user = comment.username) }}"><small>{{ comment.username }}</small></a>
+				<p>{{ comment.content }}</p>
+			</div>
+
+			{% if current_user.username == comment.username %}
+				<div class = 'media-right'>
+					<a href="{{ url_for('books.delete_comment', comment_id = comment.id) }}">
+						<button class = 'btn btn-danger'>Delete</button>
+					</a>
+				</div>
+			{% endif %}
+		</div>
+		<div class = 'page-header'></div>
+	{% endfor %}
+
+	<div class = "buy-now">
+		<a href="{{ url_for('books.buy_book', id = book.id) }}"><button class = 'buy-now-button'>BUY NOW</button></a>
+	</div>
+{% endblock content %}

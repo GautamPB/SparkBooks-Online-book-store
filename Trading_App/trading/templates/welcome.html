@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main.css') }}">
+	{% if title %}
+		<title>SparkBooks - {{ title }}</title>
+	{% else %}
+		<title>SparkBooks</title>
+	{% endif %}
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light" id = "the_nav" style='margin-bottom: 0px;'>
+		<a class="navbar-brand" href="{{ url_for('main.welcome') }}" style="font-size: 30px">
+		<img class = 'logo' src="{{ url_for('static', filename = 'pictures/logo.png') }}">
+		SparkBooks
+		</a>
+	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  	</button>
+
+	  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    	<ul class="navbar-nav mr-auto" style="padding-left: 20px;">
+		      	<li class="nav-item active">
+			        <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
+		      	</li>
+		      	<li class="nav-item active">
+		        	<a class="nav-link" href="{{ url_for('main.about') }}">About Us</a>
+		      	</li>
+		      	<li class="nav-item dropdown active">
+		        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Authors
+		        	</a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          	<a class="dropdown-item" href="{{ url_for('books.display_books', data = 'Enid Blyton') }}">Enid Blyton</a>
+			          	<a class = "dropdown-item" href="{{ url_for('books.display_books', data = 'Agatha Christie') }}">Agatha Christie</a>
+			          	<a class="dropdown-item" href="{{ url_for('books.display_books', data = 'Dan Brown') }}">Dan Brown</a>
+			          	<a class="dropdown-item" href="{{ url_for('books.display_books', data = 'Woodhouse') }}">Woodhouse</a>
+			          	<a class = "dropdown-item" href="{{ url_for('books.display_books', data = 'Ken Follet') }}">Ken Follet</a>
+			        </div>
+		      	</li>
+		      	<li class="nav-item active">
+		        	<a class="nav-link" href="{{ url_for('books.display_all_books') }}">Our Collection</a>
+		      	</li>
+	    	</ul>
+
+		    {% if current_user.is_authenticated %}
+			    <ul class = "navbar-nav" style="padding-left: 20px; padding-right: 10px;">
+		    		<li class="nav-item dropdown active">
+			        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        		<img class = 'logo' src="{{ url_for('static', filename = 'pictures/' + current_user.image_file) }}">
+			        		Account
+			        	</a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          	<a class="dropdown-item" href="{{ url_for('users.profile', user = current_user.username) }}">View Profile</a>
+				          	<a class="dropdown-item" href="{{ url_for('users.my_orders', user = current_user.username) }}">My Orders</a>
+				          	<a class = "dropdown-item" href="{{ url_for('users.logout') }}">Log Out</a>
+				        </div>
+			      	</li>
+		    	</ul>
+		    {% else %}
+			    <ul class="navbar-nav" style="padding-left: 20px;">
+			      	<li class="nav-item active">
+			        	<a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
+			      	</li>
+			      	<li class="nav-item active">
+			        	<a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
+			      	</li>
+		    	</ul>
+		    {% endif %}
+	  	</div>
+	</nav>
+
+	<div class = 'welcome-page'>
+		<div class = 'welcome-image'>
+			<img src="{{ url_for('static', filename = 'pictures/welcome.jpg') }}">
+		</div>
+
+		<div class = 'buy-now'>
+			<a href="{{ url_for('main.home') }}"><button class="btn btn-dark" style="width: 100%; height: 100px;">Start Shopping!</button></a>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

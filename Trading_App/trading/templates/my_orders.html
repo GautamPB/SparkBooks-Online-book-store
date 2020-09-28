@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block content %}
+	{% if n == 0 %}
+		<h1>There are no pending orders!</h1>
+	{% else %}
+		<div class = 'media'>
+			<div class = 'media-body'>
+				{% for order in orders %}
+					<h1>{{ order.book_title }}</h1>
+					<h3>Deliver to: {{ order.user_name }}</h3>
+					<h3>Address: {{ order.address }}</h3>
+					<h3>Price: ₹{{ order.book_price + 45 }}</h3>
+
+					<button type = "button" class = "btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Cancel Order</button>
+
+				<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="deleteModalLabel">Confirm Cancel Order</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <form style="display: inline;" action = "{{ url_for('books.delete_order', order_id = order.id) }}" method = 'POST'>
+				        	<input type="submit" class = "btn btn-danger" value = "Cancel Order">
+				        </form>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<br><br>
+				{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+{% endblock content %}

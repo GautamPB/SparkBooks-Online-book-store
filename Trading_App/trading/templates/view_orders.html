@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+	{% for order in orders %}
+		<h3>Receiver: {{ order.user_name }}</h3>
+		<h3>Email ID: {{ order.user_email }}</h3>
+		<h3>Name of Book: {{ order.book_title }}</h3>
+		<h3>Deliver to: {{ order.address }}</h3>
+		<h3>Phone number: {{ order.phone }}</h3>
+		<h3>Final price: ₹{{ order.book_price }}</h3>
+	{% endfor %}
+	<div class = 'page-header'></div>
+{% endblock content %}

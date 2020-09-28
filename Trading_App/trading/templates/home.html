@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class = "page-header">
+		<h1>Popular Authors</h1>
+	</div>
+	<a href="{{ url_for('books.display_books', data = 'Enid Blyton') }}"><button class = "home-button btn btn-primary">Enid Blyton</button></a>
+	<a href="{{ url_for('books.display_books', data = 'Dan Brown') }}"><button class = "home-button btn btn-secondary">Dan Brown</button></a>
+	<br><br>
+	<a href="{{ url_for('books.display_books', data = 'Agatha Christie') }}"><button class = "home-button btn btn-info">Agatha Christie</button></a>
+	<a href="{{ url_for('books.display_books', data = 'Jeffery Archer') }}"><button class = "home-button btn btn-success">Jeffery Archer</button></a>
+	<br><br>
+	<a href="{{ url_for('books.display_books', data = 'Woodhouse') }}"><button class = "home-button btn btn-warning">Woodhouse</button></a>
+	<a href="{{ url_for('books.display_books', data = 'Ken Follet') }}"><button class = "home-button btn btn-dark">Ken Follet</button></a>
+	<br><br>
+
+	<div class = "page-header">
+		<h1>Popular Books</h1>
+	</div>
+	{% for book in books.items %}
+		<div class = "media">
+			<div class = "media-left">
+				<a href="{{ url_for('books.display_single_book', book_id = book.id) }}"><img class = "book-cover" src="{{ url_for('static', filename = 'pictures/' + book.cover) }}"></a>
+			</div>
+			<div class = "media-body">
+				<a href="{{ url_for('books.display_single_book', book_id = book.id) }}"><h2>{{ book.name }}</h2></a>
+				<br>
+				<a href="{{ url_for('books.display_books', data = book.author) }}"><h4><small>{{ book.author }}</small></h4></a>
+				<br>
+				<h4>₹{{ book.price }}.00</h4>
+				<br>
+			</div>
+		</div>
+		<div class = "page-header"></div>
+	{% endfor %}
+	
+	{% for page_num in books.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+		{% if page_num %}
+			{% if books.page == page_num %}
+				<a class = 'btn btn-dark mb-4' href="{{ url_for('main.home', page = page_num) }}">{{ page_num }}</a>
+			{% else %}
+				<a class = 'btn btn-info mb-4' href="{{ url_for('main.home', page = page_num) }}">{{ page_num }}</a>
+			{% endif %}
+		{% else %}
+			...
+		{% endif %}
+	{% endfor %}
+	<br><br><br>
+{% endblock content %}

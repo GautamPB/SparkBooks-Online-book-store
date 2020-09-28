@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<h1>Order Summary</h1>
+	<h3>Order for <strong>{{ book.name }} </strong>has been placed!</h3>
+	<img class = 'book-cover' src="{{ url_for('static', filename = 'pictures/' + book.cover) }}">
+	<br><br>
+	<h3>Deliver to:</h3>
+	<h3>Name: {{ current_user.username }}</h3>
+	<h3>Email: {{ current_user.email }}</h3>
+	<h3>Address: {{ address }}</h3>
+	<h3>Phone: {{ phone }}</h3>
+	<h3>Delivery charges: ₹45.00</h3>
+	<h3>Final price: ₹{{ book.price + 45 }}</h3>
+	<a href="{{ url_for('main.home') }}"><button class = 'btn btn-info' style="width: 100%; height: 50px;">Continue Shopping</button></a>
+{% endblock content %}
