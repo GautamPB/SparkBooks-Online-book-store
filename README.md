@@ -8,3 +8,5 @@ How to run this Flask app on a localhost server:
 
 I could not upload all the pictures for the books as the folder got too large for github but I was able to upload a default cover page for every book.
 Cover pages for all books can be seen in the actual sparkbooks website once i have hosted it.
+
+Before you try executing the python command, open requirements.txt and make sure you have all the listed python modules installed in your computer or the localhost server will throw an error.
